@@ -27,3 +27,21 @@ This document lists the **original source files and line numbers** for all Beaut
 | Tag.name | Attribute | bs4/element.py | 1342 |
 | Tag.attrs | Attribute | bs4/element.py | 1675 |
 
+## Milestone-2 Part-3: BeautifulSoup Source Code Reference
+### Objective
+Implement `SoupReplacer(og_tag, alt_tag)` to replace HTML tags **during parsing**, similar to `SoupStrainer`.
+
+### Modified Files
+- `bs4/SoupReplacer.py` – defines `SoupReplacer` class  
+- `bs4/__init__.py` – adds `replacer` parameter to `BeautifulSoup`  
+- `bs4/builder/_htmlparser.py` – applies tag mapping inside `handle_starttag` / `handle_endtag`  
+- `bs4/tests/test_replacer.py` – test cases for tag replacement  
+- `apps/m2/task6.py` – reads HTML file and applies `SoupReplacer`
+
+### Run
+```bash
+# Execute task6 on the sample HTML
+python -m apps.m2.task6 apps/m2/sample.html
+
+# Run tests
+python -m unittest bs4.tests.test_replacer

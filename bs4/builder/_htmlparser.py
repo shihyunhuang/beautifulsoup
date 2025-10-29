@@ -136,6 +136,11 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
         # just because its name matches a known empty-element tag. We
         # know that this is an empty-element tag, and we want to call
         # handle_endtag ourselves.
+        # --- SoupReplacer: rename self-closing tag too ---
+        rep = getattr(self.soup, "_replacer", None)
+        if rep is not None:
+            name = rep.map(name)
+        # -------------------------------------------------
         self.handle_starttag(name, attrs, handle_empty_element=False)
         self.handle_endtag(name)
 
@@ -152,7 +157,14 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
             closing tag).
         """
         # TODO: handle namespaces here?
+        # --- SoupReplacer: keep closing tag in sync ---
+        rep = getattr(self.soup, "_replacer", None)
+        if rep is not None:
+            name = rep.map(name)
+        # ----------------------------------------------
+
         attr_dict: AttributeDict = self.attribute_dict_class()
+
         for key, value in attrs:
             # Change None attribute values to the empty string
             # for consistency with the other tree builders.
@@ -209,6 +221,12 @@ class BeautifulSoupHTMLParser(HTMLParser, DetectsXMLParsedAsHTML):
            be the closing portion of an empty-element tag,
            e.g. '<tag></tag>'.
         """
+        # --- SoupReplacer: keep closing tag in sync ---
+        rep = getattr(self.soup, "_replacer", None)
+        if rep is not None:
+            name = rep.map(name)
+        # ----------------------------------------------
+
         # print("END", name)
         if check_already_closed and name in self.already_closed_empty_element:
             # This is a redundant end tag for an empty-element tag.

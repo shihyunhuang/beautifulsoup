@@ -1048,6 +1048,9 @@ class BeautifulSoup(Tag):
         )
         if tag is None:
             return tag
+        replacer = getattr(self, "_replacer", None)
+        if replacer is not None:
+            replacer.apply(tag)
         if self._most_recent_element is not None:
             self._most_recent_element.next_element = tag
         self._most_recent_element = tag

@@ -1,4 +1,21 @@
 # Milestone-2
+## Milestone-2 Part-1: Modify task by implement SoupStrainer
+### Task 2 — Filter tags with href
+Parses only the elements that contain an href attribute and prints each tag’s name, href value, and visible text.
+```bash
+python apps/m2/task2.py apps/m2/sample.html
+```
+### Task 3 — Extract specific tags or sections
+Re‑implements Milestone‑1 Task 3 but uses SoupStrainer to limit parsing to the tags of interest (for example, only <h1>, <h2>, and <a> tags). Output format is the same as in M1.
+```bash
+python apps/m2/task3.py apps/m2/sample.html
+```
+### Task 4 — Parse only tables
+Processes only <table>, <tr>, <td>, and <th> elements using SoupStrainer. Performs the same computations as in Milestone‑1 Task 4 but more efficiently.
+```bash
+python apps/m2/task4.py apps/m2/sample.html
+```
+
 ## Milestone-2 Part-2: BeautifulSoup Source Code Reference
 
 This document lists the **original source files and line numbers** for all BeautifulSoup API functions I used in Milestone-1 and Milestone-2 Part-1.

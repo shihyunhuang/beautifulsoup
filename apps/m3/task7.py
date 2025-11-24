@@ -71,7 +71,7 @@ def task7(file_name: str):
     output_file.write_text(soup.prettify(), encoding="utf-8")
 
     elapsed = time.time() - start_time
-    print(f"✅ Converted '{file_name}' → '{output_file.name}' ({elapsed:.2f}s)")
+    print(f"Converted '{file_name}' → '{output_file.name}' ({elapsed:.2f}s)")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

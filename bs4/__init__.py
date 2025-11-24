@@ -493,6 +493,25 @@ class BeautifulSoup(Tag):
         self.markup = None
         self.builder.soup = None
 
+    # Adding __iter__ to BeautifulSoup to iterate over all nodes
+    def __iter__(self):
+        """
+        Iterate over all nodes in the soup in document order (depth-first, pre-order),
+        yielding one node at a time.
+
+        Important: This traversal is lazy. It does NOT collect the whole tree into a list first.
+        """
+        # We start from this soup's direct children so the soup/root itself is not yielded.
+        def walk(node):
+            # node.contents is a list of direct children (Tags, NavigableStrings, Comments, ...)
+            for child in getattr(node, "contents", []):
+                yield child
+                # Only recurse into Tag-like nodes that have children
+                if hasattr(child, "contents"):
+                    yield from walk(child)
+
+        return walk(self)
+    
     def copy_self(self) -> "BeautifulSoup":
         """Create a new BeautifulSoup object with the same TreeBuilder,
         but not associated with any markup.
